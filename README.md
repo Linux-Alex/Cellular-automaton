@@ -13,3 +13,5 @@ Funkcionalnosti:
   - voda
   - ogenj
   - dim
+
+![Example of use](./assets/Screenshot_20240318_225336.png)
