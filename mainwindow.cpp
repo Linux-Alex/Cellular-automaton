@@ -144,12 +144,20 @@ void MainWindow::updateCaveGrid()
                         nextGen[i+1][j]->setMaterial(Material::sand);
                         // qDebug() << neighbours;
                     }
+                    else if(neighbours[2] == Material::water) {
+                        nextGen[i][j]->setMaterial(this->grid[i+1][j]->material, this->grid[i+1][j]->waterDensity);
+                        nextGen[i+1][j]->setMaterial(this->grid[i][j]->material, this->grid[i][j]->waterDensity);
+                        this->grid[i+1][j]->setMaterial(this->grid[i][j]->material, this->grid[i][j]->waterDensity);
+                    }
                     else {
                         int randomNumber = QRandomGenerator::global()->bounded(0, 1+1);
-                        if(randomNumber == 0 && neighbours[1] == Material::air) {
+                        if(randomNumber == 0 && (neighbours[1] == Material::air /*|| neighbours[i] == Material::water*/)) {
                             nextGen[i][j]->setMaterial(Material::air);
                             this->grid[i][j]->setMaterial(Material::air);
                             nextGen[i+1][j+1]->setMaterial(Material::sand);
+                            // nextGen[i][j]->setMaterial(this->grid[i+1][j+1]->material, this->grid[i+1][j+1]->waterDensity);
+                            // nextGen[i+1][j+1]->setMaterial(this->grid[i][j]->material, this->grid[i][j]->waterDensity);
+                            // this->grid[i+1][j+1]->setMaterial(this->grid[i][j]->material, this->grid[i][j]->waterDensity);
                         }
                         else if(neighbours[3] == Material::air) {
                             nextGen[i][j]->setMaterial(Material::air);
@@ -253,29 +261,29 @@ void MainWindow::updateCaveGrid()
                 if(grid[i][j]->material == Material::darkSmoke) {
                     if(neighbours[6] == Material::air) {
                         nextGen[i][j]->setMaterial(Material::air);
-                        this->grid[i][j]->setMaterial(Material::air);
                         nextGen[i-1][j]->setMaterial(Material::darkSmoke);
                         nextGen[i-1][j]->setAge(this->grid[i][j]->age);
+                        this->grid[i][j]->setMaterial(Material::air);
                     }
                     else {
                         int randomNumber = QRandomGenerator::global()->bounded(0, 1+1);
                         if(randomNumber == 0 && neighbours[0] == Material::air && nextGen[i-1][j]->material == Material::air) {
                             nextGen[i][j]->setMaterial(Material::air);
-                            this->grid[i][j]->setMaterial(Material::air);
                             nextGen[i][j+1]->setMaterial(Material::darkSmoke);
                             nextGen[i][j+1]->setAge(this->grid[i][j]->age);
+                            this->grid[i][j]->setMaterial(Material::air);
                         }
                         else if(neighbours[4] == Material::air && nextGen[i][j-1]->material == Material::air) {
                             nextGen[i][j]->setMaterial(Material::air);
-                            this->grid[i][j]->setMaterial(Material::air);
                             nextGen[i][j-1]->setMaterial(Material::darkSmoke);
                             nextGen[i][j-1]->setAge(this->grid[i][j]->age);
+                            this->grid[i][j]->setMaterial(Material::air);
                         }
                         else if(neighbours[0] == Material::air) {
                             nextGen[i][j]->setMaterial(Material::air);
-                            this->grid[i][j]->setMaterial(Material::air);
-                            nextGen[i][j+1]->setMaterial(Material::darkSmoke);
                             nextGen[i][j+1]->setAge(this->grid[i][j]->age);
+                            nextGen[i][j+1]->setMaterial(Material::darkSmoke);
+                            this->grid[i][j]->setMaterial(Material::air);
                         }
                     }
                 }
@@ -284,29 +292,29 @@ void MainWindow::updateCaveGrid()
                 if(grid[i][j]->material == Material::lightSmoke) {
                     if(neighbours[6] == Material::air) {
                         nextGen[i][j]->setMaterial(Material::air);
-                        this->grid[i][j]->setMaterial(Material::air);
                         nextGen[i-1][j]->setMaterial(Material::lightSmoke);
                         nextGen[i-1][j]->setAge(this->grid[i][j]->age);
+                        this->grid[i][j]->setMaterial(Material::air);
                     }
                     else {
                         int randomNumber = QRandomGenerator::global()->bounded(0, 1+1);
                         if(randomNumber == 0 && neighbours[0] == Material::air && nextGen[i-1][j]->material == Material::air) {
                             nextGen[i][j]->setMaterial(Material::air);
-                            this->grid[i][j]->setMaterial(Material::air);
                             nextGen[i][j+1]->setMaterial(Material::lightSmoke);
                             nextGen[i][j+1]->setAge(this->grid[i][j]->age);
+                            this->grid[i][j]->setMaterial(Material::air);
                         }
                         else if(neighbours[4] == Material::air && nextGen[i][j-1]->material == Material::air) {
                             nextGen[i][j]->setMaterial(Material::air);
-                            this->grid[i][j]->setMaterial(Material::air);
                             nextGen[i][j-1]->setMaterial(Material::lightSmoke);
                             nextGen[i][j-1]->setAge(this->grid[i][j]->age);
+                            this->grid[i][j]->setMaterial(Material::air);
                         }
                         else if(neighbours[0] == Material::air) {
                             nextGen[i][j]->setMaterial(Material::air);
-                            this->grid[i][j]->setMaterial(Material::air);
                             nextGen[i][j+1]->setMaterial(Material::lightSmoke);
                             nextGen[i][j+1]->setAge(this->grid[i][j]->age);
+                            this->grid[i][j]->setMaterial(Material::air);
                         }
                     }
                 }
